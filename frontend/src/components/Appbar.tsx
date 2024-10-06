@@ -1,7 +1,15 @@
+import { useUser } from "../hooks/useUser";
+import { AppbarSkeleton } from "./AppbarSkeletion";
 import { Avatar } from "./BlogCard";
 import { Link } from "react-router-dom";
 
 export const Appbar = () => {
+  const { loading, user } = useUser();
+
+  if (loading || !user) {
+    return <AppbarSkeleton />;
+  }
+
   return (
     <div className="border-b flex justify-between px-10 py-4">
       <Link to={"/blogs"} className="flex flex-col justify-center cursor-pointer">
@@ -17,8 +25,11 @@ export const Appbar = () => {
           </button>
         </Link>
 
-        <Avatar size={"big"} name="harkirat" />
+        <Avatar size={"big"} name={user.name[0]} />
       </div>
     </div>
   );
 };
+
+//JWT
+///me

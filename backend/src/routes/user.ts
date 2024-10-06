@@ -20,6 +20,21 @@ interface CustomJWTPayload extends JWTPayload {
   id: string;
 }
 
+userRouter.get("/me", async (c) => {
+  const prisma = new PrismaClient({ datasourceUrl: c.env.DATABASE_URL }).$extends(withAccelerate());
+
+  const id = c.get("userId");
+  try {
+    const user = await prisma.user.findFirst({ where: { id }, select: { name: true } });
+    console.log("Here" + user);
+    c.status(200);
+    return c.json(user);
+  } catch (e) {
+    c.status(401);
+    return c.json({ message: "User not found" });
+  }
+});
+
 userRouter.post("/signup", async (c) => {
   const prisma = new PrismaClient({ datasourceUrl: c.env.DATABASE_URL }).$extends(withAccelerate());
   const body: User = await c.req.json();
