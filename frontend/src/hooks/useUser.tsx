@@ -16,9 +16,7 @@ export function useUser() {
       .get(`${BACKEND_URL}/api/v1/user/me`, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } })
       .then((response) => {
         setUser(response.data);
-        setTimeout(() => {
-          SetLoading(false);
-        }, 5000);
+        SetLoading(false);
       })
       .catch((e) => console.log(e));
   }, []);
