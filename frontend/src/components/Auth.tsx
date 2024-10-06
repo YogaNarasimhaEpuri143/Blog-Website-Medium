@@ -4,7 +4,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SignupInput } from "@yogadev/medium-common";
-import { BACKEND_URL } from "../config";
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const [postInputs, setPostInputs] = useState<SignupInput>({
@@ -114,4 +115,4 @@ function LabelledInput({ label, placeholder, type, onChange }: LablledInputType)
 // Dot in html ==> Unicode
 // avatar in tailwindcss
 // state management, put the data fetched from the DB in state.
-// 
+//
